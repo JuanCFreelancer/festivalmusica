@@ -617,3 +617,13 @@ a:hover {
 .pase-footer p:hover {
   background-color: rgb(152.8909090909, 64.6484848485, 195.7515151515);
 }
+
+.footer {
+  background-color: rgb(247, 95, 119.8);
+  padding: 2rem 0;
+}
+.footer p {
+  margin: 0;
+  color: #FFFFFF;
+  text-align: center;
+}/*# sourceMappingURL=app.css.map */
