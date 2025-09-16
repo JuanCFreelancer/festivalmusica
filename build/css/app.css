@@ -326,6 +326,9 @@ body {
   color: #000000;
   font-size: 2rem;
 }
+body.overflow-hidden {
+  overflow: hidden;
+}
 
 p {
   color: #000000;
@@ -342,7 +345,9 @@ a {
   text-decoration: none;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   margin: 0 0 5rem 0;
   font-weight: 900;
 }
@@ -481,7 +486,7 @@ a:hover {
 }
 
 .lineup {
-  background-color: #F53756;
+  background-color: rgb(247.4285714286, 103.5714285714, 127.0428571429);
 }
 .lineup h3,
 .lineup .dia {
@@ -530,19 +535,100 @@ a:hover {
 }
 
 .bg-amarillo {
-  background-color: #fdda00;
+  background-color: rgb(255, 226.5019762846, 49);
 }
 .bg-amarillo li:nth-child(odd) {
-  background-color: rgb(255, 222.9743083004, 23.5);
+  background-color: rgb(255, 233.557312253, 100);
 }
 
 .bg-verde {
-  background-color: #4CB8B3;
+  background-color: rgb(112.516, 198.484, 194.504);
 }
 .bg-verde li:nth-child(odd) {
-  background-color: rgb(94.258, 191.242, 186.752);
+  background-color: rgb(149.032, 212.968, 210.008);
 }
 
+.galeria {
+  width: 95%;
+  max-width: 120rem;
+  margin: 0 auto;
+}
+.galeria-imagenes {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 2rem;
+}
+@media (min-width: 480px) {
+  .galeria-imagenes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+@media (min-width: 768px) {
+  .galeria-imagenes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+@media (min-width: 1200px) {
+  .galeria-imagenes {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}
+.galeria-imagenes img {
+  height: 20rem;
+  object-fit: cover;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: grid;
+  place-items: center;
+  animation: fadeIn ease-in 0.5s;
+}
+.modal.fade-out {
+  animation: fadeOut ease-in 0.5s;
+}
+
+.btn-cerrar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: none;
+  color: #000000;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+img {
+  max-width: 100rem;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 .contenedor-boletos {
   background-color: rgb(94.258, 191.242, 186.752);
 }
