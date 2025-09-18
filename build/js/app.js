@@ -1,8 +1,26 @@
 // Espera a que todo el contenido del DOM (la estructura HTML) se haya cargado completamente antes de ejecutar el código.
 document.addEventListener("DOMContentLoaded", function () {
+  navegacionFija()
   // Llama a la función para crear la galería de imágenes.
-  crearGaleria();
-});
+  crearGaleria()
+  // Llama a la función para resaltar el enlace actual en la navegación.
+  resaltarEnlace()
+
+  scrollNav()
+})
+
+function navegacionFija() {
+  const header = document.querySelector(".header");
+  const sobreFestival = document.querySelector(".sobre-festival");
+
+  document.addEventListener("scroll", function () {
+    if (sobreFestival.getBoundingClientRect().bottom < 1) {
+      header.classList.add("fixed");
+    } else {
+      header.classList.remove("fixed");
+    }
+  });
+}
 
 // Función encargada de crear y poblar la galería de imágenes en la página.
 function crearGaleria() {
@@ -48,8 +66,8 @@ function mostrarImagen(i) {
 
   // Crea un botón para cerrar el modal.
   const cerrarModalBtn = document.createElement("BUTTON");
-  cerrarModalBtn.textContent = 'X';
-  cerrarModalBtn.classList.add('btn-cerrar');
+  cerrarModalBtn.textContent = "X";
+  cerrarModalBtn.classList.add("btn-cerrar");
   // Asigna la función cerrarModal al evento 'onclick' del botón.
   cerrarModalBtn.onclick = cerrarModal;
 
@@ -80,4 +98,41 @@ function cerrarModal() {
     // Elimina la clase que previene el scroll.
     body.classList.remove("overflow-hidden");
   }, 500);
+}
+// Función
+function resaltarEnlace() {
+    document.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('section')
+        const navLinks = document.querySelectorAll('.navegacion-principal a')
+ 
+        let actual = '';
+        sections.forEach( section => {
+            const sectionTop = section.offsetTop
+            const sectionHeight = section.clientHeight
+            if(window.scrollY >= (sectionTop - sectionHeight / 3 ) ) {
+                actual = section.id
+            }
+        })
+ 
+        navLinks.forEach(link => {
+            link.classList.remove('active')
+            if(link.getAttribute('href') === '#' + actual) {
+                link.classList.add('active')
+            }
+        })
+    })
+}
+
+function scrollNav() {
+  const navLinks = document.querySelectorAll(".navegacion-principal a")
+
+  navLinks.forEach( link => {
+    link.addEventListener("click", e => {
+      e.preventDefault()
+      const sectionScroll = e.target.getAttribute("href")
+      const section = document.querySelector(sectionScroll)
+
+      section.scrollIntoView({behavior: "smooth"})
+    })
+  })
 }
