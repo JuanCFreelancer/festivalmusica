@@ -1,13 +1,13 @@
 // Espera a que todo el contenido del DOM (la estructura HTML) se haya cargado completamente antes de ejecutar el código.
 document.addEventListener("DOMContentLoaded", function () {
-  navegacionFija()
+  navegacionFija();
   // Llama a la función para crear la galería de imágenes.
-  crearGaleria()
+  crearGaleria();
   // Llama a la función para resaltar el enlace actual en la navegación.
-  resaltarEnlace()
+  resaltarEnlace();
 
-  scrollNav()
-})
+  scrollNav();
+});
 
 function navegacionFija() {
   const header = document.querySelector(".header");
@@ -32,11 +32,12 @@ function crearGaleria() {
   // Itera desde 1 hasta la cantidad total de imágenes para crearlas dinámicamente.
   for (let i = 1; i <= CANTIDAD_IMAGENES; i++) {
     // Crea un nuevo elemento de imagen.
-    const imagen = document.createElement("IMG");
-    // Establece la ruta de la imagen, usando el número actual de la iteración.
-    imagen.src = `src/img/gallery/full/${i}.jpg`;
-    // Asigna un texto alternativo a la imagen para accesibilidad.
-    imagen.alt = "Imagen Galeria";
+    const imagen = document.createElement("PICTURE");
+    imagen.innerHTML = `
+    <source srcset="build/img/gallery/thumb/${i}.avif" type="image/avif">
+    <source srcset="build/img/gallery/thumb/${i}.webp" type="image/webp">
+    <img loading="lazy" width="200" height="300" src="build/img/gallery/thumb/${i}.jpg" alt="imagen galeria">
+    `;
 
     // Asigna un manejador de eventos 'onclick' a cada imagen.
     imagen.onclick = function () {
@@ -52,11 +53,12 @@ function crearGaleria() {
 // Función para mostrar una imagen específica en un overlay (modal).
 function mostrarImagen(i) {
   // Crea un nuevo elemento de imagen para mostrar en grande.
-  const imagen = document.createElement("IMG");
-  // Establece la ruta de la imagen que se va a mostrar.
-  imagen.src = `src/img/gallery/full/${i}.jpg`;
-  // Asigna un texto alternativo a la imagen.
-  imagen.alt = "Imagen Galeria";
+  const imagen = document.createElement("PICTURE");
+    imagen.innerHTML = `
+    <source srcset="build/img/gallery/full/${i}.avif" type="image/avif">
+    <source srcset="build/img/gallery/full/${i}.webp" type="image/webp">
+    <img loading="lazy" width="200" height="300" src="build/img/gallery/full/${i}.jpg" alt="imagen galeria">
+    `;
 
   // Crea un div que funcionará como el fondo del modal.
   const modal = document.createElement("DIV");
@@ -101,38 +103,38 @@ function cerrarModal() {
 }
 // Función
 function resaltarEnlace() {
-    document.addEventListener('scroll', function() {
-        const sections = document.querySelectorAll('section')
-        const navLinks = document.querySelectorAll('.navegacion-principal a')
- 
-        let actual = '';
-        sections.forEach( section => {
-            const sectionTop = section.offsetTop
-            const sectionHeight = section.clientHeight
-            if(window.scrollY >= (sectionTop - sectionHeight / 3 ) ) {
-                actual = section.id
-            }
-        })
- 
-        navLinks.forEach(link => {
-            link.classList.remove('active')
-            if(link.getAttribute('href') === '#' + actual) {
-                link.classList.add('active')
-            }
-        })
-    })
+  document.addEventListener("scroll", function () {
+    const sections = document.querySelectorAll("section");
+    const navLinks = document.querySelectorAll(".navegacion-principal a");
+
+    let actual = "";
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (window.scrollY >= sectionTop - sectionHeight / 3) {
+        actual = section.id;
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === "#" + actual) {
+        link.classList.add("active");
+      }
+    });
+  });
 }
 
 function scrollNav() {
-  const navLinks = document.querySelectorAll(".navegacion-principal a")
+  const navLinks = document.querySelectorAll(".navegacion-principal a");
 
-  navLinks.forEach( link => {
-    link.addEventListener("click", e => {
-      e.preventDefault()
-      const sectionScroll = e.target.getAttribute("href")
-      const section = document.querySelector(sectionScroll)
+  navLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const sectionScroll = e.target.getAttribute("href");
+      const section = document.querySelector(sectionScroll);
 
-      section.scrollIntoView({behavior: "smooth"})
-    })
-  })
+      section.scrollIntoView({ behavior: "smooth" });
+    });
+  });
 }
